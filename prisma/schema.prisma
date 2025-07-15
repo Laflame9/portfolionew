@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Profile {
+  id           Int    @id @default(autoincrement())
+  fullName     String
+  bio          String
+  age          Int?
+  location     String?
+  photoUrl     String? // URL de ta photo de profil
+  email        String   @unique
+  phone        String?
+
+  skills       Skill[]
+  socialLinks  SocialLink[]
+
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Skill {
+  id         Int   @id @default(autoincrement())
+  title      String
+  date       DateTime
+  content    String
+  category   String
+  icon       String
+  relatedIds Int[]
+  status     SkillStatus
+  energy     Int
+  profileId  Int
+  profile    Profile  @relation(fields: [profileId], references: [id])
+}
+
+model SocialLink {
+  id         Int  @id @default(autoincrement())
+  platform   String   // Exemple: "GitHub", "LinkedIn", "Twitter"
+  url        String
+  profileId  Int
+  profile    Profile  @relation(fields: [profileId], references: [id])
+}
+
+model Project {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String
+  githubUrl   String?
+  liveUrl     String?
+  imageUrl    String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  technologies Technology[] @relation("ProjectTechnologies")
+}
+
+model Technology {
+  id    Int    @id @default(autoincrement())
+  name  String    @unique
+  icon  String?   // URL ou nom d'icône (FontAwesome, etc.)
+
+  projects Project[] @relation("ProjectTechnologies")
+}
+
+enum SkillStatus {
+  complet
+  en_Progression
+  en_Attente
+}
