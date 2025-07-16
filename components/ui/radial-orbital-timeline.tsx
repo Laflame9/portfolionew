@@ -40,6 +40,19 @@ export default function RadialOrbitalTimeline({
   const containerRef = useRef<HTMLDivElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<Record<number, HTMLDivElement | null>>({});
+ const [screenWidth, setScreenWidth] = useState<number>(0);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    handleResize(); // set initial width
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
 
   const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === containerRef.current || e.target === orbitRef.current) {
@@ -114,7 +127,9 @@ export default function RadialOrbitalTimeline({
 
   const calculateNodePosition = (index: number, total: number) => {
     const angle = ((index / total) * 360 + rotationAngle) % 360;
-    const radius = 200;
+
+    const maxRadius = Math.min(screenWidth * 0.35, 220);
+    const radius = maxRadius;
     const radian = (angle * Math.PI) / 180;
 
     const x = radius * Math.cos(radian) + centerOffset.x;
@@ -155,13 +170,24 @@ export default function RadialOrbitalTimeline({
 
   return (
     <div
-      className="w-full h-screen flex flex-col items-center justify-center bg-black overflow-hidden"
+      className="w-full h-200 flex flex-col items-center justify-center bg-neutral-950 overflow-hidden"
       ref={containerRef}
       onClick={handleContainerClick}
     >
+      <div className="flex flex-col flex-wrap xs:text-balance    m-10 items-center gap-5">
+        <h2 className="text-white text-3xl xs:text-center xs:text-4xl  xs:w-60 md:text-[40px] md:w-full font-semibold leading-tight md:leading-[53px]">
+        Mes Differentes Compétences
+        </h2>
+        <p className="w-full md:w-100   
+        text-center xs:w-85 xs:text-sm 
+         text-gray-400 ">
+          Compétences en design UI/UX, développement fullstack (Next.js, Node.js, Python, Prisma), 
+          intégration WordPress et ERP Odoo.
+        </p>
+      </div>
       <div className="relative w-full max-w-4xl h-full flex items-center justify-center">
         <div
-          className="absolute w-full h-full flex items-center justify-center"
+          className="absolute w-full  h-full flex items-center justify-center "
           ref={orbitRef}
           style={{
             perspective: "1000px",
@@ -175,9 +201,9 @@ export default function RadialOrbitalTimeline({
               style={{ animationDelay: "0.5s" }}
             ></div>
             <div className="w-8 h-8 rounded-full bg-white/80 backdrop-blur-md"></div>
-          </div>
-
-          <div className="absolute w-96 h-96 rounded-full border border-white/10"></div>
+          </div> 
+      
+          <div className= {"absolute md:w-96  md:h-96 xs:w-65 xs:h-65  rounded-full border md:border-white/10"}></div>
 
           {timelineData.map((item, index) => {
             const position = calculateNodePosition(index, timelineData.length);
@@ -198,7 +224,7 @@ export default function RadialOrbitalTimeline({
                 ref={(el) => {
                   nodeRefs.current[item.id] = el;
                 }}
-                className="absolute transition-all duration-700 cursor-pointer"
+                className="absolute transition-all  duration-700 cursor-pointer "
                 style={nodeStyle}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -206,7 +232,7 @@ export default function RadialOrbitalTimeline({
                 }}
               >
                 <div
-                  className={`absolute rounded-full -inset-1 ${
+                  className={`absolute  rounded-full -inset-1 ${
                     isPulsing ? "animate-pulse duration-1000" : ""
                   }`}
                   style={{
@@ -220,7 +246,7 @@ export default function RadialOrbitalTimeline({
 
                 <div
                   className={`
-                  w-10 h-10 rounded-full flex items-center justify-center
+                  w-10 h-10 rounded-full flex items-center justify-center bg-neutral-500
                   ${
                     isExpanded
                       ? "bg-white text-black"
@@ -276,7 +302,7 @@ export default function RadialOrbitalTimeline({
                             : "EN ATTENTE"}
                         </Badge>
                         <span className="text-xs font-mono text-white/50">
-                          {item.date.}
+                          {item.date.split("T")[0]}
                         </span>
                       </div>
                       <CardTitle className="text-sm mt-2">

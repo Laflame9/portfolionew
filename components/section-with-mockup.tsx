@@ -62,7 +62,7 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                             </h2>
                         </div>
 
-                        <p className="text-[#868f97] text-wrap text-justify w-138 text-sm md:text-[15px] leading-6">
+                        <p className="text-[#868f97] text-wrap text-justify  text-sm md:text-[15px] leading-7 w-full">
                             {description}
                         </p>
                          {/* Optional: Add a button or link here */}

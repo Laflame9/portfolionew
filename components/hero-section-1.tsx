@@ -79,7 +79,7 @@ export function HeroSection() {
                                         <Button
                                             asChild
                                             size="lg"
-                                            className="rounded-xl px-5 text-base">
+                                            className="rounded-xl px-5 text-base ">
                                             <Link href="#link">
                                                 <span className="text-nowrap">Télécharger mon CV</span>
                                             </Link>
