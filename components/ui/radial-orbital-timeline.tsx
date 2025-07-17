@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
+import TitreAnimed from "./titre-animed";
 
 interface TimelineItem {
   id: number;
@@ -170,15 +171,15 @@ export default function RadialOrbitalTimeline({
 
   return (
     <div
-      className="w-full h-200 flex flex-col items-center justify-center bg-neutral-950 overflow-hidden"
+      className="w-full h-250 flex flex-col items-center justify-center bg-neutral-950 overflow-hidden"
       ref={containerRef}
       onClick={handleContainerClick}
     >
       <div className="flex flex-col flex-wrap xs:text-balance    m-10 items-center gap-5">
-        <h2 className="text-white text-3xl xs:text-center xs:text-4xl  xs:w-60 md:text-[40px] md:w-full font-semibold leading-tight md:leading-[53px]">
-        Mes Differentes Compétences
-        </h2>
-        <p className="w-full md:w-100   
+        <div className="text-white text-3xl xs:text-center xs:text-4xl  xs:w-60 md:text-[40px] md:w-200 font-semibold leading-tight md:leading-[53px]">
+          <TitreAnimed firsttitle="Mes Differentes Compétences"/>
+        </div>
+        <p className="w-full md:w-190   
         text-center xs:w-85 xs:text-sm 
          text-gray-400 ">
           Compétences en design UI/UX, développement fullstack (Next.js, Node.js, Python, Prisma), 

@@ -1,7 +1,11 @@
+import { BGPattern } from "@/components/bg-pattern";
+import CardProject from "@/components/card-project";
 import { HeroSection } from "@/components/hero-section-1";
 import RadialOrbitalTimelineClient from "@/components/RadialOrbitalTimelineClient";
 import SectionWithMockup from "@/components/section-with-mockup";
-import { BeamsBackground } from "@/components/ui/beams-background";
+import { GradientCard } from "@/components/ui/gradient-card";
+import { LampContainer } from "@/components/ui/lamp";
+import TitreAnimed from "@/components/ui/titre-animed";
 
 
 
@@ -56,14 +60,36 @@ export default async function Home() {
   return (
     <div >
       <main>
-        <HeroSection/>
-         <SectionWithMockup
+        <section className="h-screen">
+          <HeroSection/>
+          <BGPattern variant="grid" mask="fade-edges"/>
+        </section>
+        <section>
+          <SectionWithMockup
             title={exampleData1.title}
             description={exampleData1.description}
             primaryImageSrc={exampleData1.primaryImageSrc}
             secondaryImageSrc={exampleData1.secondaryImageSrc}
         />
-         <RadialOrbitalTimelineClient timelineData={data[0].skills} />
+        </section>
+        <section>
+          <RadialOrbitalTimelineClient timelineData={data[0].skills} />
+        </section> 
+        <section>
+          <LampContainer>
+            <TitreAnimed firsttitle="Build lamps " secondtitle="the right way"/>
+    
+          </LampContainer>
+          <div className="w-full flex gap-20 justify-center flex-wrap">
+              <GradientCard/>
+              <GradientCard/>
+              <GradientCard/>
+              <GradientCard/>
+              <GradientCard/>
+              <GradientCard/>
+
+          </div>
+        </section>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
       </footer>

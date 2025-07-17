@@ -79,9 +79,9 @@ export function HeroSection() {
                                         <Button
                                             asChild
                                             size="lg"
-                                            className="rounded-xl px-5 text-base ">
+                                            className="rounded-xl px-5 text-white bg-purple-600 hover:bg-purple-600/50">
                                             <Link href="#link">
-                                                <span className="text-nowrap">Télécharger mon CV</span>
+                                                <span className="text-nowrap ">Télécharger mon CV</span>
                                             </Link>
                                         </Button>
                                     </div>
@@ -118,24 +118,49 @@ export function HeroSection() {
 }
 
 const menuItems = [
-    { name: 'Acceuil', href: '#link' },
-    { name: 'A Propos', href: '#link' },
-    { name: 'Competences', href: '#link' },
-    { name: 'Project', href: '#link' },
-    { name: 'Contact', href: '#link' },
+    { name: 'Acceuil', href: '#link',id:'acceuil' },
+    { name: 'A Propos', href: '#link',id:'propos' },
+    { name: 'Competences', href: '#link',id:'competences' },
+    { name: 'Project', href: '#link',id:'project' },
+    { name: 'Contact', href: '#link',id:'contact' },
 ]
 
 const HeroHeader = () => {
     const [menuState, setMenuState] = React.useState(false)
     const [isScrolled, setIsScrolled] = React.useState(false)
-
+    const [isLinks,setIsLinks] = React.useState('acceuil')
     React.useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50)
         }
         window.addEventListener('scroll', handleScroll)
+        
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
+    console.log(isLinks)
+
+    React.useEffect( () => {
+
+        const getElementNavbar = () => {
+            const scrollY = window.scrollY
+            if (scrollY < 480) {
+                setIsLinks('acceuil');
+            } else if (scrollY >= 480 && scrollY < 1400) {
+                setIsLinks('propos');
+            } else if (scrollY >= 1400 && scrollY < 2200) {
+                setIsLinks('competences');
+            } else if (scrollY >2200){
+                setIsLinks('project');
+            }
+    };
+
+        window.addEventListener('scroll',getElementNavbar)
+
+        return () =>{
+            window.removeEventListener('scroll',getElementNavbar)
+        } 
+
+    },[])
     return (
         <header>
             <nav
@@ -147,7 +172,7 @@ const HeroHeader = () => {
                             <Link
                                 href="/"
                                 aria-label="home"
-                                className="flex items-center space-x-2">
+                                className="flex items-center space-x-2 ">
                                 <Logo />
                             </Link>
 
@@ -165,8 +190,10 @@ const HeroHeader = () => {
                                 {menuItems.map((item, index) => (
                                     <li key={index}>
                                         <Link
+                                            id={item.id}
                                             href={item.href}
-                                            className="text-muted-foreground hover:text-accent-foreground block duration-150">
+                                            className={`text-muted-foreground hover:text-accent-foreground block duration-150 
+                                            ${isLinks == item.id ? 'text-purple-600':'' }`}>
                                             <span>{item.name}</span>
                                         </Link>
                                     </li>
