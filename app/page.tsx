@@ -1,11 +1,12 @@
 import { BGPattern } from "@/components/bg-pattern";
-import CardProject from "@/components/card-project";
 import { HeroSection } from "@/components/hero-section-1";
 import RadialOrbitalTimelineClient from "@/components/RadialOrbitalTimelineClient";
 import SectionWithMockup from "@/components/section-with-mockup";
+import { Footer } from "@/components/ui/footer";
 import { GradientCard } from "@/components/ui/gradient-card";
 import { LampContainer } from "@/components/ui/lamp";
 import TitreAnimed from "@/components/ui/titre-animed";
+import { Github, Hexagon, Linkedin } from "lucide-react";
 
 
 
@@ -50,13 +51,25 @@ import TitreAnimed from "@/components/ui/titre-animed";
 };
 
 //donnee pour les competences
-
+interface Project{
+   id:number;
+  title:string;
+  description: string;
+  githubUrl ?:  string;
+  liveUrl ? :   string;
+  imageUrl?  :  string;
+  createdAt :  Date    
+  updatedAt :  Date
+}
 
 
 export default async function Home() {
 
   const res = await fetch(`${process.env.API_URL}/api/profile`);
   const data = await res.json();
+
+  const getproject = await fetch(`${process.env.API_URL}/api/project`);
+  const resProject:Project[] = await getproject.json();
   return (
     <div >
       <main>
@@ -77,21 +90,86 @@ export default async function Home() {
         </section> 
         <section>
           <LampContainer>
-            <TitreAnimed firsttitle="Build lamps " secondtitle="the right way"/>
+            <TitreAnimed firsttitle="De l’idée au code " />
     
           </LampContainer>
           <div className="w-full flex gap-20 justify-center flex-wrap">
-              <GradientCard/>
-              <GradientCard/>
-              <GradientCard/>
-              <GradientCard/>
-              <GradientCard/>
-              <GradientCard/>
-
+            {resProject.map((item)=>
+              <GradientCard key={item.id} titre={item.title} content={item.description} href={item.liveUrl} />
+            )}
           </div>
         </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+      <footer className="md:h-100 w-full flex flex-col justify-center
+        xs:h-130">
+        <Footer
+        logo={
+  <svg
+  viewBox="0 0 150 60"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  className="h-8 w-auto "
+>
+  <defs>
+    <linearGradient
+      id="logo-gradient-purple"
+      x1="0"
+      y1="0"
+      x2="150"
+      y2="0"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop offset="0%" stopColor="#A78BFA" />   {/* Light Purple */}
+      <stop offset="100%" stopColor="#7C3AED" /> {/* Deep Violet */}
+    </linearGradient>
+  </defs>
+
+  <text
+    x="50%"
+    y="50%"
+    dominantBaseline="middle"
+    textAnchor="middle"
+    fontSize="48"
+    fontWeight="bold"
+    fontFamily="monospace"
+    fill="url(#logo-gradient-purple)"
+  >
+    {'</>'}
+  </text>
+</svg>
+
+
+
+        }
+        brandName="YvanDev"
+        socialLinks={[
+          {
+            icon: <Github className="h-5 w-5 text-purple-600" />,
+            href: "https://github.com/Laflame9",
+            label: "GitHub",
+          },
+          
+          {
+            icon: <Linkedin className="h-5 w-5 text-purple-600" />,
+            href: "https://www.linkedin.com/in/yvann-diomande-4306b1284/",
+            label: "Linkedin",
+          },
+        ]}
+        mainLinks={[
+          { href: "#", label: "Acceuil" },
+          { href: "#", label: "A Propos" },
+          { href: "#", label: "Compétences" },
+          { href: "#", label: "Contact" },
+        ]}
+        legalLinks={[
+          { href: "yvandiomande06@gmail.com", label: "yvandiomande06@gmail.com" },
+          { href: "", label: "07 99 03 65 42" },
+        ]}
+        copyright={{
+          text: "© 2025 Yvann Diomandé",
+          license: "All rights reserved",
+        }}
+      />
       </footer>
     </div>
   );

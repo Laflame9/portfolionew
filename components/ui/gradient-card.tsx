@@ -1,8 +1,15 @@
 'use client'
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Url } from "url";
 
-export const GradientCard = () => {
+interface propos{
+  titre:string;
+  content:string;
+  href?:string
+}
+
+export const GradientCard = ({titre,content,href}:propos) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -333,7 +340,7 @@ export const GradientCard = () => {
                 transition: { duration: 1.2, delay: 0.2 }
               }}
             >
-              AI-Powered Inbox Sorting
+              {titre}
             </motion.h3>
 
             <motion.p
@@ -350,13 +357,12 @@ export const GradientCard = () => {
                 transition: { duration: 1.2, delay: 0.4 }
               }}
             >
-              OpenMail revolutionizes email management with AI-driven sorting,
-              boosting productivity and accessibility
+              {content}
             </motion.p>
 
             {/* Learn More with arrow - matching the image */}
             <motion.a
-              href="#"
+              href={href}
               className="inline-flex items-center text-white text-sm font-medium group"
               initial={{ filter: "blur(3px)", opacity: 0.7 }}
               animate={{
@@ -368,7 +374,7 @@ export const GradientCard = () => {
                 filter: "drop-shadow(0 0 5px rgba(255, 255, 255, 0.5))"
               }}
             >
-              Learn More
+              Plus
               <motion.svg
                 className="ml-1 w-4 h-4"
                 width="8"

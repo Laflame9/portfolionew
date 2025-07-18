@@ -171,7 +171,7 @@ export default function RadialOrbitalTimeline({
 
   return (
     <div
-      className="w-full h-250 flex flex-col items-center justify-center bg-neutral-950 overflow-hidden"
+      className="w-full h-240 flex flex-col items-center justify-center bg-neutral-950 overflow-hidden"
       ref={containerRef}
       onClick={handleContainerClick}
     >
@@ -179,12 +179,6 @@ export default function RadialOrbitalTimeline({
         <div className="text-white text-3xl xs:text-center xs:text-4xl  xs:w-60 md:text-[40px] md:w-200 font-semibold leading-tight md:leading-[53px]">
           <TitreAnimed firsttitle="Mes Differentes Compétences"/>
         </div>
-        <p className="w-full md:w-190   
-        text-center xs:w-85 xs:text-sm 
-         text-gray-400 ">
-          Compétences en design UI/UX, développement fullstack (Next.js, Node.js, Python, Prisma), 
-          intégration WordPress et ERP Odoo.
-        </p>
       </div>
       <div className="relative w-full max-w-4xl h-full flex items-center justify-center">
         <div
@@ -195,7 +189,7 @@ export default function RadialOrbitalTimeline({
             transform: `translate(${centerOffset.x}px, ${centerOffset.y}px)`,
           }}
         >
-          <div className="absolute w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 via-blue-500 to-teal-500 animate-pulse flex items-center justify-center z-10">
+          <div className="absolute w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 via-blue-700 to-purple-950 animate-pulse flex items-center justify-center z-10">
             <div className="absolute w-20 h-20 rounded-full border border-white/20 animate-ping opacity-70"></div>
             <div
               className="absolute w-24 h-24 rounded-full border border-white/10 animate-ping opacity-50"
@@ -247,7 +241,7 @@ export default function RadialOrbitalTimeline({
 
                 <div
                   className={`
-                  w-10 h-10 rounded-full flex items-center justify-center bg-neutral-500
+                  w-10 h-10 rounded-full flex items-center justify-center bg-purple-400
                   ${
                     isExpanded
                       ? "bg-white text-black"
@@ -258,7 +252,7 @@ export default function RadialOrbitalTimeline({
                   border-2 
                   ${
                     isExpanded
-                      ? "border-white shadow-lg shadow-white/30"
+                      ? "border-purple-600 shadow-lg shadow-white/30"
                       : isRelated
                       ? "border-white animate-pulse"
                       : "border-white/40"
