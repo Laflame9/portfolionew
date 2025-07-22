@@ -7,17 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import TitreAnimed from "./titre-animed";
 
-interface TimelineItem {
-  id: number;
-  title: string;
-  date: string;
-  content: string;
-  category: string;
-  icon: string;
-  relatedIds: number[];
-  status: "complet" | "en_Progression" | "en_Attente";
-  energy: number;
-}
+
 
 interface RadialOrbitalTimelineProps {
   timelineData: TimelineItem[];
@@ -297,7 +287,7 @@ export default function RadialOrbitalTimeline({
                             : "EN ATTENTE"}
                         </Badge>
                         <span className="text-xs font-mono text-white/50">
-                          {item.date.split("T")[0]}
+                          {item.date instanceof Date ? item.date.toISOString().split("T")[0] : item.date}
                         </span>
                       </div>
                       <CardTitle className="text-sm mt-2">
