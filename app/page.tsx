@@ -6,6 +6,7 @@ import { Footer } from "@/components/ui/footer";
 import { GradientCard } from "@/components/ui/gradient-card";
 import { LampContainer } from "@/components/ui/lamp";
 import TitreAnimed from "@/components/ui/titre-animed";
+import { apiProfileData, apiProjectData } from "@/lib/getProfile";
 import { Github, Hexagon, Linkedin } from "lucide-react";
 
 
@@ -65,12 +66,12 @@ interface Project{
 
 export default async function Home() {
 
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  
 
-  const res = await fetch(`${baseUrl}/api/profile`);
+  const res = await apiProfileData();
   const data = await res.json();
 
-  const getproject = await fetch(`${baseUrl}/api/project`);
+  const getproject = await apiProjectData();
   const resProject:Project[] = await getproject.json();
   return (
     <div >
