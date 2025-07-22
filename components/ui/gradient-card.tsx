@@ -6,7 +6,7 @@ import { Url } from "url";
 interface propos{
   titre:string;
   content:string;
-  href?:string
+  href:string |undefined
 }
 
 export const GradientCard = ({titre,content,href}:propos) => {

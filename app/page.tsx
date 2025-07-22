@@ -6,8 +6,8 @@ import { Footer } from "@/components/ui/footer";
 import { GradientCard } from "@/components/ui/gradient-card";
 import { LampContainer } from "@/components/ui/lamp";
 import TitreAnimed from "@/components/ui/titre-animed";
-import { apiProfileData, apiProjectData } from "@/lib/getProfile";
-import { Github, Hexagon, Linkedin } from "lucide-react";
+import { getProfileData, getProjectData } from "@/lib/getProfile";
+import { Github, Linkedin } from "lucide-react";
 
 
 
@@ -52,15 +52,15 @@ import { Github, Hexagon, Linkedin } from "lucide-react";
 };
 
 //donnee pour les competences
-interface Project{
-   id:number;
-  title:string;
-  description: string;
-  githubUrl ?:  string;
-  liveUrl ? :   string;
-  imageUrl?  :  string;
-  createdAt :  Date    
-  updatedAt :  Date
+interface Project{ 
+  id: number; 
+  createdAt: Date; 
+  updatedAt: Date; 
+  title: string; 
+  description: string; 
+  githubUrl: string | null; 
+  liveUrl: string | null; 
+  imageUrl: string | null; 
 }
 
 
@@ -68,11 +68,9 @@ export default async function Home() {
 
   
 
-  const res = await apiProfileData();
-  const data = await res.json();
+  const res = await getProfileData();
 
-  const getproject = await apiProjectData();
-  const resProject:Project[] = await getproject.json();
+  const resProject:Project[] = await getProjectData();
   return (
     <div >
       <main>
@@ -89,7 +87,7 @@ export default async function Home() {
         />
         </section>
         <section>
-          <RadialOrbitalTimelineClient timelineData={data[0].skills} />
+          <RadialOrbitalTimelineClient timelineData={res[0].skills} />
         </section> 
         <section>
           <LampContainer>
@@ -98,7 +96,8 @@ export default async function Home() {
           </LampContainer>
           <div className="w-full flex gap-20 justify-center flex-wrap">
             {resProject.map((item)=>
-              <GradientCard key={item.id} titre={item.title} content={item.description} href={item.liveUrl} />
+              <GradientCard key={item.id} titre={item.title} content={item.description} href={
+                item.liveUrl?item.liveUrl:""} />
             )}
           </div>
         </section>
