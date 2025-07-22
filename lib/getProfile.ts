@@ -18,7 +18,7 @@ export async function getProjectData() {
 
 export async function apiProjectData() {
   // Ex. récupère depuis une DB via Prisma
-  return await fetch(`${baseUrl}/api/profile`);
+  return await fetch(`${baseUrl}/api/project`);
 }
 
 
