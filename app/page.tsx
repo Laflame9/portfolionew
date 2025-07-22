@@ -65,10 +65,10 @@ interface Project{
 
 export default async function Home() {
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profile`);
+  const res = await fetch(`${process.env.API_URL}/api/profile`);
   const data = await res.json();
 
-  const getproject = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/project`);
+  const getproject = await fetch(`${process.env.API_URL}/api/project`);
   const resProject:Project[] = await getproject.json();
   return (
     <div >
