@@ -1,7 +1,7 @@
 'use client';
 
 import React from "react";
-import { motion } from "framer-motion";
+import { easeInOut, motion } from "framer-motion";
 
 interface SectionWithMockupProps {
     title: string | React.ReactNode;
@@ -30,7 +30,7 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
 
     const itemVariants = {
         hidden: { opacity: 0, y: 50 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeInOut" } },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeInOut } },
     };
 
     const layoutClasses = reverseLayout
